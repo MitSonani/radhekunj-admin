@@ -2,7 +2,7 @@
 
 import { useEffect, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
-import { LoadingState } from '@/components/common/LoadingState';
+import { PageLoader } from '@/components/common/PageLoader';
 import { APP_ROUTES } from '@/constants';
 import { useIsClient } from '@/hooks/useIsClient';
 import { useSession } from '@/hooks/useSession';
@@ -28,11 +28,11 @@ export function GuestGuard({ children }: GuestGuardProps) {
   }, [hasAdminAccess, isClient, router]);
 
   if (!isClient) {
-    return <LoadingState fullPage message="Loading..." />;
+    return <PageLoader cover="app" message="Loading..." />;
   }
 
   if (hasAdminAccess) {
-    return <LoadingState fullPage message="Redirecting..." />;
+    return <PageLoader cover="app" message="Redirecting..." />;
   }
 
   return <>{children}</>;

@@ -20,6 +20,8 @@ interface DataTableProps<T> {
   onRetry?: () => void;
   emptyTitle?: string;
   emptyDescription?: string;
+  emptyActionLabel?: string;
+  onEmptyAction?: () => void;
   className?: string;
 }
 
@@ -32,6 +34,8 @@ export function DataTable<T>({
   onRetry,
   emptyTitle = 'No records found',
   emptyDescription = 'There are no records to display.',
+  emptyActionLabel,
+  onEmptyAction,
   className,
 }: DataTableProps<T>) {
   if (isLoading) {
@@ -43,11 +47,18 @@ export function DataTable<T>({
   }
 
   if (data.length === 0) {
-    return <EmptyState title={emptyTitle} description={emptyDescription} />;
+    return (
+      <EmptyState
+        title={emptyTitle}
+        description={emptyDescription}
+        actionLabel={emptyActionLabel}
+        onActionClick={onEmptyAction}
+      />
+    );
   }
 
   return (
-    <div className={cn('overflow-hidden rounded-lg border border-border bg-surface', className)}>
+    <div className={cn('rounded-lg border border-border bg-surface', className)}>
       <div className="overflow-x-auto">
         <table className="min-w-full text-left text-sm">
           <thead className="border-b border-border bg-surface-muted/70">

@@ -2,6 +2,9 @@ export const APP_ROUTES = {
   HOME: '/',
   LOGIN: '/login',
   DASHBOARD: '/dashboard',
+  CATEGORIES: '/categories',
+  CATEGORY_NEW: '/categories/new',
+  categoryEdit: (id: string) => `/categories/${id}/edit`,
 } as const;
 
 export const STORAGE_KEYS = {
@@ -18,4 +21,34 @@ export const AUTH_CONSTRAINTS = {
   OTP_LENGTH: 6,
   DEFAULT_COUNTRY_CODE: '+91',
   RESEND_SECONDS: 60,
+} as const;
+
+/**
+ * Matches Backend `PAGINATION` defaults.
+ * List requests must stay within Backend `min 1` / `MAX_LIMIT 100`.
+ */
+export const PAGINATION = {
+  DEFAULT_PAGE: 1,
+  DEFAULT_LIMIT: 20,
+} as const;
+
+/**
+ * Matches Backend category validation and `CATEGORY_IMAGE` constants.
+ * Frontend checks are UX-only; Backend remains authoritative.
+ */
+export const CATEGORY_CONSTRAINTS = {
+  NAME_MAX: 100,
+  DESCRIPTION_MAX: 2000,
+  SEARCH_MAX: 100,
+} as const;
+
+export const CATEGORY_IMAGE = {
+  MAX_BYTES: 5 * 1024 * 1024,
+  PURPOSE: 'category_image',
+  ALLOWED_MIME_TYPES: ['image/jpeg', 'image/png', 'image/webp'] as const,
+} as const;
+
+export const CATEGORY_STATUS = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
 } as const;

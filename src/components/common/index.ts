@@ -11,5 +11,6 @@ export { Drawer } from './Drawer';
 export { ConfirmDialog } from './ConfirmDialog';
 export { EmptyState } from './EmptyState';
 export { LoadingState } from './LoadingState';
+export { PageLoader } from './PageLoader';
 export { ErrorState } from './ErrorState';
 export { NavIcon, MenuIcon, CloseIcon, BellIcon, LogoutIcon } from './icons';

@@ -3,10 +3,18 @@
  * Do not invent additional response fields here.
  */
 
+export type PaginationMeta = {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+};
+
 export type ApiResponse<T = unknown> = {
   success: boolean;
   data?: T;
   message?: string;
+  pagination?: PaginationMeta;
 };
 
 export type ErrorResponse = {

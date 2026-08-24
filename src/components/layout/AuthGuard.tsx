@@ -2,7 +2,7 @@
 
 import { useEffect, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
-import { LoadingState } from '@/components/common/LoadingState';
+import { PageLoader } from '@/components/common/PageLoader';
 import { APP_ROUTES } from '@/constants';
 import { useIsClient } from '@/hooks/useIsClient';
 import { useSession } from '@/hooks/useSession';
@@ -37,7 +37,7 @@ export function AuthGuard({ children }: AuthGuardProps) {
   }, [hasAdminAccess, isAuthenticated, isClient, logout, router]);
 
   if (!isClient || !hasAdminAccess) {
-    return <LoadingState fullPage message="Checking session..." />;
+    return <PageLoader cover="app" message="Checking session..." />;
   }
 
   return <>{children}</>;

@@ -40,7 +40,7 @@ export const NAV_ITEMS: NavItem[] = [
     label: 'Categories',
     href: '/categories',
     icon: 'categories',
-    enabled: false,
+    enabled: true,
   },
   {
     id: 'inventory',
