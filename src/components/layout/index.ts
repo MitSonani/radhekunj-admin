@@ -6,3 +6,4 @@ export { Breadcrumb } from './Breadcrumb';
 export type { BreadcrumbItem } from './Breadcrumb';
 export { AuthLayout } from './AuthLayout';
 export { AuthGuard } from './AuthGuard';
+export { GuestGuard } from './GuestGuard';

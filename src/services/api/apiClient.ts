@@ -1,5 +1,5 @@
 import { config } from '@/config';
-import { getAccessToken } from '@/lib/auth';
+import { clearSession, getAccessToken } from '@/lib/auth';
 import { ApiError, type ErrorResponse } from '@/types/api';
 
 interface RequestOptions extends Omit<RequestInit, 'body'> {
@@ -73,6 +73,9 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
     });
 
     if (!response.ok) {
+      if (response.status === 401 && token) {
+        clearSession();
+      }
       throw await parseError(response);
     }
 

@@ -1,7 +1,6 @@
 import { STORAGE_KEYS } from '@/constants';
 import type { AuthSession, SessionUser } from './types';
 
-const USER_STORAGE_KEY = 'admin_session_user';
 export const SESSION_CHANGE_EVENT = 'admin-session-change';
 
 function canUseStorage(): boolean {
@@ -43,7 +42,7 @@ export function getSessionUser(): SessionUser | null {
     return null;
   }
 
-  const raw = window.localStorage.getItem(USER_STORAGE_KEY);
+  const raw = window.localStorage.getItem(STORAGE_KEYS.SESSION_USER);
   if (!raw) {
     return null;
   }
@@ -60,7 +59,17 @@ export function setSessionUser(user: SessionUser): void {
     return;
   }
 
-  window.localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+  window.localStorage.setItem(STORAGE_KEYS.SESSION_USER, JSON.stringify(user));
+  notifySessionChange();
+}
+
+export function persistSession(token: string, user: SessionUser): void {
+  if (!canUseStorage()) {
+    return;
+  }
+
+  window.localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, token);
+  window.localStorage.setItem(STORAGE_KEYS.SESSION_USER, JSON.stringify(user));
   notifySessionChange();
 }
 
@@ -77,6 +86,6 @@ export function clearSession(): void {
   }
 
   window.localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
-  window.localStorage.removeItem(USER_STORAGE_KEY);
+  window.localStorage.removeItem(STORAGE_KEYS.SESSION_USER);
   notifySessionChange();
 }

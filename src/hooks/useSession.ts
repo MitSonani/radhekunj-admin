@@ -5,8 +5,7 @@ import {
   SESSION_CHANGE_EVENT,
   clearSession,
   getSession,
-  setAccessToken,
-  setSessionUser,
+  persistSession as writeSession,
   type AuthSession,
   type SessionUser,
 } from '@/lib/auth';
@@ -32,7 +31,9 @@ function getClientSnapshot(): AuthSession {
   if (
     cachedSnapshot.token === next.token &&
     cachedUser?.id === nextUser?.id &&
-    cachedUser?.name === nextUser?.name
+    cachedUser?.name === nextUser?.name &&
+    cachedUser?.role?.id === nextUser?.role?.id &&
+    cachedUser?.role?.name === nextUser?.role?.name
   ) {
     return cachedSnapshot;
   }
@@ -45,16 +46,11 @@ function getServerSnapshot(): AuthSession {
   return emptySession;
 }
 
-/**
- * Client session hook.
- * Login/logout against the Backend is not wired yet; this prepares the session surface.
- */
 export function useSession() {
   const session = useSyncExternalStore(subscribe, getClientSnapshot, getServerSnapshot);
 
   const persistSession = useCallback((nextToken: string, nextUser: SessionUser) => {
-    setAccessToken(nextToken);
-    setSessionUser(nextUser);
+    writeSession(nextToken, nextUser);
   }, []);
 
   const logout = useCallback(() => {
@@ -64,7 +60,6 @@ export function useSession() {
   return {
     token: session.token,
     user: session.user,
-    isReady: true,
     isAuthenticated: Boolean(session.token),
     persistSession,
     logout,
