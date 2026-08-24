@@ -1,0 +1,168 @@
+@import 'tailwindcss';
+
+/*
+ * Admin Panel design tokens.
+ * Brand greens are shared with the storefront; surfaces, density, and
+ * typography are tuned for administrative, data-heavy workflows.
+ */
+:root {
+  /* Brand */
+  --admin-primary: #164a35;
+  --admin-primary-hover: #0f3326;
+  --admin-primary-muted: #28624a;
+  --admin-primary-soft: #e7f0eb;
+  --admin-primary-foreground: #ffffff;
+
+  /* Sidebar */
+  --admin-sidebar: #0f3326;
+  --admin-sidebar-hover: #164a35;
+  --admin-sidebar-active: #1c5740;
+  --admin-sidebar-text: #f3f7f5;
+  --admin-sidebar-muted: #9bb5a8;
+  --admin-sidebar-border: #1a4536;
+
+  /* Surfaces */
+  --admin-background: #f3f5f4;
+  --admin-surface: #ffffff;
+  --admin-surface-muted: #eef1ef;
+  --admin-border: #dce3df;
+  --admin-border-strong: #c5d0ca;
+
+  /* Text */
+  --admin-text: #1a211e;
+  --admin-text-secondary: #4b5751;
+  --admin-text-muted: #6b7670;
+
+  /* Status */
+  --admin-success: #15803d;
+  --admin-success-soft: #dcfce7;
+  --admin-warning: #b45309;
+  --admin-warning-soft: #ffedd5;
+  --admin-danger: #b91c1c;
+  --admin-danger-soft: #fee2e2;
+  --admin-info: #0369a1;
+  --admin-info-soft: #e0f2fe;
+
+  /* Typography */
+  --admin-font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --admin-font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --admin-text-xs: 0.75rem;
+  --admin-text-sm: 0.875rem;
+  --admin-text-md: 0.9375rem;
+  --admin-text-lg: 1.125rem;
+  --admin-text-xl: 1.25rem;
+  --admin-text-2xl: 1.5rem;
+  --admin-leading: 1.5;
+  --admin-tracking: 0;
+
+  /* Spacing */
+  --admin-space-1: 0.25rem;
+  --admin-space-2: 0.5rem;
+  --admin-space-3: 0.75rem;
+  --admin-space-4: 1rem;
+  --admin-space-5: 1.25rem;
+  --admin-space-6: 1.5rem;
+  --admin-space-8: 2rem;
+  --admin-sidebar-width: 16rem;
+  --admin-header-height: 3.5rem;
+  --admin-content-padding: 1.5rem;
+
+  /* Borders & radius */
+  --admin-border-width: 1px;
+  --admin-radius-sm: 0.25rem;
+  --admin-radius-md: 0.375rem;
+  --admin-radius-lg: 0.5rem;
+  --admin-radius-full: 9999px;
+
+  /* Shadows */
+  --admin-shadow-sm: 0 1px 2px rgb(15 51 38 / 0.06);
+  --admin-shadow-md: 0 4px 16px rgb(15 51 38 / 0.08);
+  --admin-shadow-lg: 0 12px 32px rgb(15 51 38 / 0.12);
+
+  /* Breakpoints (aligned with Tailwind defaults) */
+  --admin-breakpoint-sm: 640px;
+  --admin-breakpoint-md: 768px;
+  --admin-breakpoint-lg: 1024px;
+  --admin-breakpoint-xl: 1280px;
+}
+
+@theme inline {
+  --font-sans: var(--admin-font-sans);
+  --font-mono: var(--admin-font-mono);
+
+  --color-primary: var(--admin-primary);
+  --color-primary-hover: var(--admin-primary-hover);
+  --color-primary-muted: var(--admin-primary-muted);
+  --color-primary-soft: var(--admin-primary-soft);
+  --color-primary-foreground: var(--admin-primary-foreground);
+
+  --color-sidebar: var(--admin-sidebar);
+  --color-sidebar-hover: var(--admin-sidebar-hover);
+  --color-sidebar-active: var(--admin-sidebar-active);
+  --color-sidebar-text: var(--admin-sidebar-text);
+  --color-sidebar-muted: var(--admin-sidebar-muted);
+  --color-sidebar-border: var(--admin-sidebar-border);
+
+  --color-background: var(--admin-background);
+  --color-surface: var(--admin-surface);
+  --color-surface-muted: var(--admin-surface-muted);
+  --color-border: var(--admin-border);
+  --color-border-strong: var(--admin-border-strong);
+
+  --color-text: var(--admin-text);
+  --color-text-secondary: var(--admin-text-secondary);
+  --color-text-muted: var(--admin-text-muted);
+
+  --color-success: var(--admin-success);
+  --color-success-soft: var(--admin-success-soft);
+  --color-warning: var(--admin-warning);
+  --color-warning-soft: var(--admin-warning-soft);
+  --color-danger: var(--admin-danger);
+  --color-danger-soft: var(--admin-danger-soft);
+  --color-info: var(--admin-info);
+  --color-info-soft: var(--admin-info-soft);
+
+  --radius-sm: var(--admin-radius-sm);
+  --radius-md: var(--admin-radius-md);
+  --radius-lg: var(--admin-radius-lg);
+
+  --shadow-sm: var(--admin-shadow-sm);
+  --shadow-md: var(--admin-shadow-md);
+  --shadow-lg: var(--admin-shadow-lg);
+
+  --spacing-sidebar: var(--admin-sidebar-width);
+  --spacing-header: var(--admin-header-height);
+}
+
+html,
+body {
+  background-color: var(--admin-background);
+  color: var(--admin-text);
+  font-family: var(--admin-font-sans);
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--admin-primary);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--admin-border-strong);
+  border-radius: var(--admin-radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--admin-text-muted);
+}
