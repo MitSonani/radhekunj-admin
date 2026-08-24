@@ -12,3 +12,14 @@ export type {
   CategoryImageContentType,
   PresignedUpload,
 } from './categories';
+export { attributeService, attributeSupportsColor } from './attributes';
+export type {
+  Attribute,
+  AttributeValue,
+  ListAttributesParams,
+  ListAttributeValuesParams,
+  CreateAttributePayload,
+  UpdateAttributePayload,
+  CreateAttributeValuePayload,
+  UpdateAttributeValuePayload,
+} from './attributes';

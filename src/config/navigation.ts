@@ -2,6 +2,7 @@ export type NavIconName =
   | 'dashboard'
   | 'products'
   | 'categories'
+  | 'attributes'
   | 'inventory'
   | 'orders'
   | 'customers'
@@ -40,6 +41,13 @@ export const NAV_ITEMS: NavItem[] = [
     label: 'Categories',
     href: '/categories',
     icon: 'categories',
+    enabled: true,
+  },
+  {
+    id: 'attributes',
+    label: 'Attributes',
+    href: '/attributes',
+    icon: 'attributes',
     enabled: true,
   },
   {

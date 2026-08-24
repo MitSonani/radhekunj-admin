@@ -50,9 +50,6 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         </div>
 
         <nav aria-label="Admin" className="flex-1 overflow-y-auto px-3 py-4">
-          <p className="mb-2 px-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">
-            Navigation
-          </p>
           <ul className="flex flex-col gap-0.5">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);

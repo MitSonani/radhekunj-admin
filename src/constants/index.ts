@@ -5,6 +5,10 @@ export const APP_ROUTES = {
   CATEGORIES: '/categories',
   CATEGORY_NEW: '/categories/new',
   categoryEdit: (id: string) => `/categories/${id}/edit`,
+  ATTRIBUTES: '/attributes',
+  ATTRIBUTE_NEW: '/attributes/new',
+  attributeDetail: (id: string) => `/attributes/${id}`,
+  attributeEdit: (id: string) => `/attributes/${id}/edit`,
 } as const;
 
 export const STORAGE_KEYS = {
@@ -51,4 +55,15 @@ export const CATEGORY_IMAGE = {
 export const CATEGORY_STATUS = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',
+} as const;
+
+/**
+ * Matches Backend `ATTRIBUTE` constants and AttributeValue.colorCode (VarChar 7).
+ * Frontend checks are UX-only; Backend remains authoritative.
+ */
+export const ATTRIBUTE_CONSTRAINTS = {
+  NAME_MAX: 100,
+  VALUE_MAX: 100,
+  SEARCH_MAX: 100,
+  COLOR_CODE_PATTERN: /^#[0-9A-Fa-f]{6}$/,
 } as const;
