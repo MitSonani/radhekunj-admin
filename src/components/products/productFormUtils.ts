@@ -214,11 +214,110 @@ export function selectedAttributes(attributes: CatalogAttribute[], selected: Rec
   return attributes.filter((attribute) => (selected[attribute.id] ?? []).length > 0);
 }
 
+const SKU_STOP_WORDS = new Set(['a', 'an', 'and', 'for', 'of', 'the', 'with']);
+
+function skuSafeToken(value: string): string {
+  return value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+}
+
+export function skuPrefixFromName(name: string): string {
+  const words = name
+    .trim()
+    .split(/[\s\-_]+/)
+    .map(skuSafeToken)
+    .filter((word) => word.length > 0 && !SKU_STOP_WORDS.has(word.toLowerCase()));
+
+  if (words.length === 0) {
+    return 'PRD';
+  }
+
+  if (words.length === 1) {
+    return words[0].slice(0, 4);
+  }
+
+  const initials = words.map((word) => word[0]).join('');
+  if (initials.length >= 3) {
+    return initials.slice(0, 4);
+  }
+
+  return `${words[0]}${initials.slice(1)}`.slice(0, 4);
+}
+
+export function skuSegmentFromValue(value: string, slug?: string): string {
+  const source = skuSafeToken(slug || value);
+  if (!source) {
+    return 'X';
+  }
+
+  if (source.length <= 4) {
+    return source;
+  }
+
+  const consonants = source.replace(/[AEIOU]/g, '');
+  if (consonants.length >= 3) {
+    return consonants.slice(0, 3);
+  }
+
+  return source.slice(0, 3);
+}
+
+function skuBaseForCombination(
+  productName: string,
+  attributeValueIds: string[],
+  attributes: CatalogAttribute[]
+): string {
+  const prefix = skuPrefixFromName(productName);
+  const segments = attributes.flatMap((attribute) =>
+    attributeValueIds
+      .filter((id) => attribute.values.some((value) => value.id === id))
+      .map((id) => {
+        const value = attribute.values.find((item) => item.id === id);
+        return skuSegmentFromValue(value?.value || '', value?.slug);
+      })
+  );
+
+  return [prefix, ...segments].join('-');
+}
+
+export function nextUniqueSku(base: string, taken: Set<string>): string {
+  const sanitized = base.replace(/[^A-Za-z0-9\-_]/g, '').replace(/^[-_]+/, '') || 'PRD';
+  const truncatedBase = sanitized.slice(0, Math.max(PRODUCT_CONSTRAINTS.SKU_MAX - 4, 1));
+
+  let sequence = 1;
+  while (sequence < 10000) {
+    const suffix = `-${String(sequence).padStart(3, '0')}`;
+    const candidate = `${truncatedBase}${suffix}`.slice(0, PRODUCT_CONSTRAINTS.SKU_MAX);
+    const key = candidate.toLowerCase();
+
+    if (!taken.has(key)) {
+      taken.add(key);
+      return candidate;
+    }
+
+    sequence += 1;
+  }
+
+  return `${truncatedBase}-${createClientId().slice(0, 4)}`.slice(0, PRODUCT_CONSTRAINTS.SKU_MAX);
+}
+
+export function generateSku(options: {
+  productName: string;
+  attributeValueIds: string[];
+  attributes: CatalogAttribute[];
+  takenSkus: Set<string>;
+}): string {
+  return nextUniqueSku(
+    skuBaseForCombination(options.productName, options.attributeValueIds, options.attributes),
+    options.takenSkus
+  );
+}
+
 export function generateVariantCombinations(
   attributes: CatalogAttribute[],
   selected: Record<string, string[]>,
   existing: DraftVariant[],
-  defaultPrice: string
+  defaultPrice: string,
+  productName: string
 ): { variants: DraftVariant[]; error?: string } {
   const active = selectedAttributes(attributes, selected);
 
@@ -239,19 +338,33 @@ export function generateVariantCombinations(
   const existingByFingerprint = new Map(
     existing.map((variant) => [combinationFingerprint(variant.attributeValueIds), variant])
   );
+  const takenSkus = new Set(
+    existing.map((variant) => variant.sku.trim().toLowerCase()).filter((sku) => sku.length > 0)
+  );
 
   const nextVariants = combinations.map((attributeValueIds) => {
     const fingerprint = combinationFingerprint(attributeValueIds);
     const current = existingByFingerprint.get(fingerprint);
 
-    if (current) {
+    if (current?.sku.trim()) {
       return current;
+    }
+
+    const sku = generateSku({
+      productName,
+      attributeValueIds,
+      attributes,
+      takenSkus,
+    });
+
+    if (current) {
+      return { ...current, sku };
     }
 
     return {
       clientId: createClientId(),
       attributeValueIds,
-      sku: '',
+      sku,
       price: defaultPrice,
       compareAtPrice: '',
       quantity: '0',

@@ -34,7 +34,7 @@ export function VariantTable({
   errors = {},
   disabled = false,
   busyClientId = null,
-  emptyDescription = 'Select attribute values and generate combinations, or add a default variant.',
+  emptyDescription = 'Select attribute values and generate combinations.',
   onChange,
   onRemove,
   onSave,
@@ -117,7 +117,7 @@ export function VariantTable({
                       maxLength={64}
                       disabled={isBusy}
                       error={fieldErrors.sku}
-                      placeholder="SKU"
+                      placeholder="Auto-generated"
                       aria-label={`SKU for ${attributeValueLabel(variant.attributeValueIds, attributes, labels)}`}
                     />
                   </td>

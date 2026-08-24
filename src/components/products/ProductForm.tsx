@@ -7,7 +7,7 @@ import { Select } from '@/components/common/Select';
 import { FormActions } from '@/components/forms/FormActions';
 import { FormError } from '@/components/forms/FormError';
 import { FormField } from '@/components/forms/FormField';
-import { PRODUCT_CONSTRAINTS, PRODUCT_STATUS, PRODUCT_VARIANT_STATUS } from '@/constants';
+import { PRODUCT_CONSTRAINTS, PRODUCT_STATUS } from '@/constants';
 import type { CatalogAttribute } from '@/hooks/useCatalogOptions';
 import type {
   Category,
@@ -23,7 +23,6 @@ import { AttributeSelector } from './AttributeSelector';
 import { ProductImageManager } from './ProductImageManager';
 import {
   combinationFingerprint,
-  createClientId,
   findDuplicateSkuClientIds,
   generateVariantCombinations,
   normalizeMoney,
@@ -200,36 +199,27 @@ export function ProductForm({
 
   const handleGenerate = () => {
     setFormError(null);
-    const result = generateVariantCombinations(attributes, selected, variants, normalizeMoney(basePrice) || basePrice);
+
+    const trimmedName = name.trim();
+    if (!trimmedName) {
+      setFieldErrors((current) => ({ ...current, name: 'Enter a product name before generating SKUs.' }));
+      setFormError('Enter a product name before generating variants so SKUs can be created.');
+      return;
+    }
+
+    const result = generateVariantCombinations(
+      attributes,
+      selected,
+      variants,
+      normalizeMoney(basePrice) || basePrice,
+      trimmedName
+    );
     if (result.error) {
       setFormError(result.error);
       return;
     }
 
     setVariants(result.variants);
-  };
-
-  const handleAddDefaultVariant = () => {
-    setFormError(null);
-    const fingerprint = combinationFingerprint([]);
-    if (variants.some((variant) => combinationFingerprint(variant.attributeValueIds) === fingerprint)) {
-      setFormError('A default variant already exists.');
-      return;
-    }
-
-    setVariants((current) => [
-      ...current,
-      {
-        clientId: createClientId(),
-        attributeValueIds: [],
-        sku: '',
-        price: normalizeMoney(basePrice) || basePrice,
-        compareAtPrice: '',
-        quantity: '0',
-        reservedQuantity: '0',
-        status: PRODUCT_VARIANT_STATUS.ACTIVE,
-      },
-    ]);
   };
 
   const validateBasic = (): FieldErrors => {
@@ -469,14 +459,11 @@ export function ProductForm({
           <div>
             <h2 className="text-sm font-semibold text-text">Variants</h2>
             <p className="mt-1 text-xs text-text-muted">
-              SKU, price, and stock are required for every variant. Reserved stock is returned by the Backend and is
-              shown as read-only.
+              SKU is generated from the product name and attribute values. You can edit it before saving. Price and
+              stock are required. Reserved stock is returned by the Backend and is shown as read-only.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Button type="button" variant="outline" disabled={isBusy} onClick={handleAddDefaultVariant}>
-              Add default variant
-            </Button>
             <Button type="button" variant="secondary" disabled={isBusy} onClick={handleGenerate}>
               Generate variants
             </Button>
