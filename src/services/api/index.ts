@@ -23,3 +23,28 @@ export type {
   CreateAttributeValuePayload,
   UpdateAttributeValuePayload,
 } from './attributes';
+export { productService } from './products';
+export type {
+  ProductStatus,
+  ProductVariantStatus,
+  ProductCategorySummary,
+  ProductAttributeSummary,
+  ProductAttributeValueSummary,
+  Inventory,
+  VariantAttribute,
+  ProductVariant,
+  ProductImage,
+  ProductListItem,
+  ProductDetail,
+  ListProductsParams,
+  VariantInventoryInput,
+  CreateVariantPayload,
+  CreateProductPayload,
+  UpdateProductPayload,
+  UpdateVariantPayload,
+  SetInventoryPayload,
+  AdjustInventoryPayload,
+  ProductImageContentType,
+  CreateProductImagePayload,
+  UpdateProductImagePayload,
+} from './products';
