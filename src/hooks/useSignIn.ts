@@ -21,7 +21,7 @@ export function useSignIn() {
       }
       return response.data?.otp;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Failed to send verification code';
+      const message = err instanceof ApiError ? err.message : 'Failed to send verification code';
       setError(message);
       throw err;
     } finally {
@@ -42,7 +42,7 @@ export function useSignIn() {
       const { token, user } = response.data;
       if (!isAdminRole(user.role?.name)) {
         clearSession();
-        throw new Error('This account does not have admin access.');
+        throw new Error('No admin found');
       }
 
       persistSession(token, {

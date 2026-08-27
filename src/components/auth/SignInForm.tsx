@@ -194,7 +194,10 @@ export function SignInForm() {
   }
 
   return (
-    <AuthLayout title="Sign in" description="Use the mobile number on your admin account. A verification code will be sent.">
+    <AuthLayout
+        title="Sign in"
+        description="Enter an existing admin mobile number. New accounts cannot be created here."
+      >
       <form onSubmit={handleRequestCode} className="flex flex-col gap-4">
         <div className="flex gap-3">
           <div className="w-24 shrink-0">

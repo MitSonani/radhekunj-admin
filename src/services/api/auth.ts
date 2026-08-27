@@ -29,14 +29,14 @@ export interface AuthResponseData {
 }
 
 /**
- * Backend authentication contract:
- * POST /api/v1/auth/otp/send
- * POST /api/v1/auth/otp/verify
+ * Admin login contract (existing admins only — never registers a user):
+ * POST /api/v1/auth/admin/otp/send
+ * POST /api/v1/auth/admin/otp/verify
  */
 export const authService = {
   sendOtp: (payload: SendOtpPayload) =>
-    apiClient.post<ApiResponse<{ otp?: string }>>('/auth/otp/send', payload),
+    apiClient.post<ApiResponse<{ otp?: string }>>('/auth/admin/otp/send', payload),
 
   verifyOtp: (payload: VerifyOtpPayload) =>
-    apiClient.post<ApiResponse<AuthResponseData>>('/auth/otp/verify', payload),
+    apiClient.post<ApiResponse<AuthResponseData>>('/auth/admin/otp/verify', payload),
 };
