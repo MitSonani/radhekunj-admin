@@ -48,3 +48,18 @@ export type {
   CreateProductImagePayload,
   UpdateProductImagePayload,
 } from './products';
+export { couponService } from './coupons';
+export type {
+  CouponStatus,
+  CouponDiscountType,
+  CouponScope,
+  CouponValidity,
+  CouponCatalogTarget,
+  CouponListItem,
+  CouponDetail,
+  CouponUsage,
+  ListCouponsParams,
+  ListCouponUsagesParams,
+  CreateCouponPayload,
+  UpdateCouponPayload,
+} from './coupons';

@@ -18,3 +18,7 @@ export { useProductVariantMutations } from './useProductVariantMutations';
 export { useProductImageMutations } from './useProductImageMutations';
 export { useCatalogOptions } from './useCatalogOptions';
 export type { CatalogAttribute } from './useCatalogOptions';
+export { useCoupons } from './useCoupons';
+export { useCoupon } from './useCoupon';
+export { useCouponUsages } from './useCouponUsages';
+export { useCouponMutations } from './useCouponMutations';

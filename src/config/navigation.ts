@@ -96,7 +96,7 @@ export const NAV_SECTIONS: NavSection[] = [
         label: 'Coupons',
         href: '/coupons',
         icon: 'coupons',
-        enabled: false,
+        enabled: true,
       },
     ],
   },

@@ -13,6 +13,10 @@ export const APP_ROUTES = {
   PRODUCT_NEW: '/products/new',
   productDetail: (id: string) => `/products/${id}`,
   productEdit: (id: string) => `/products/${id}/edit`,
+  COUPONS: '/coupons',
+  COUPON_NEW: '/coupons/new',
+  couponDetail: (id: string) => `/coupons/${id}`,
+  couponEdit: (id: string) => `/coupons/${id}/edit`,
 } as const;
 
 export const STORAGE_KEYS = {
@@ -103,4 +107,40 @@ export const PRODUCT_STATUS = {
 export const PRODUCT_VARIANT_STATUS = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',
+} as const;
+
+/**
+ * Matches Backend `COUPON` constants and admin coupon validation.
+ * Frontend checks are UX-only; Backend remains authoritative.
+ */
+export const COUPON_CONSTRAINTS = {
+  CODE_MIN: 3,
+  CODE_MAX: 50,
+  SEARCH_MAX: 50,
+  CODE_PATTERN: /^[A-Z0-9]+(?:-[A-Z0-9]+)*$/,
+  MAX_MAPPINGS: 100,
+  PERCENTAGE_MAX: 100,
+  MONEY_PATTERN: /^(?:0|[1-9]\d{0,9})(?:\.\d{1,2})?$/,
+} as const;
+
+export const COUPON_STATUS = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+} as const;
+
+export const COUPON_DISCOUNT_TYPE = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED_AMOUNT: 'FIXED_AMOUNT',
+} as const;
+
+export const COUPON_SCOPE = {
+  CART: 'CART',
+  PRODUCT: 'PRODUCT',
+  CATEGORY: 'CATEGORY',
+} as const;
+
+export const COUPON_VALIDITY = {
+  CURRENT: 'CURRENT',
+  UPCOMING: 'UPCOMING',
+  EXPIRED: 'EXPIRED',
 } as const;
