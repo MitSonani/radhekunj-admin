@@ -8,6 +8,10 @@ interface RequestOptions extends Omit<RequestInit, 'body'> {
 }
 
 function buildUrl(path: string, params?: RequestOptions['params']): string {
+  if (config.isProduction && !process.env.NEXT_PUBLIC_API_URL) {
+    throw new ApiError(500, 'NEXT_PUBLIC_API_URL is required in production.');
+  }
+
   let url = `${config.apiUrl}${path}`;
 
   if (!params) {

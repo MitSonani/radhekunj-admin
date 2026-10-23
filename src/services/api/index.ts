@@ -63,3 +63,11 @@ export type {
   CreateCouponPayload,
   UpdateCouponPayload,
 } from './coupons';
+export { orderService } from './orders';
+export type {
+  OrderListResponse,
+  OrderDetailResponse,
+  ShipmentResponse,
+  PaymentItemResponse,
+} from './orders';
+

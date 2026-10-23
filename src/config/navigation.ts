@@ -82,7 +82,7 @@ export const NAV_SECTIONS: NavSection[] = [
         label: 'Orders',
         href: '/orders',
         icon: 'orders',
-        enabled: false,
+        enabled: true,
       },
       {
         id: 'customers',

@@ -17,6 +17,8 @@ export const APP_ROUTES = {
   COUPON_NEW: '/coupons/new',
   couponDetail: (id: string) => `/coupons/${id}`,
   couponEdit: (id: string) => `/coupons/${id}/edit`,
+  ORDERS: '/orders',
+  orderDetail: (id: string) => `/orders/${id}`,
 } as const;
 
 export const STORAGE_KEYS = {
@@ -143,4 +145,37 @@ export const COUPON_VALIDITY = {
   CURRENT: 'CURRENT',
   UPCOMING: 'UPCOMING',
   EXPIRED: 'EXPIRED',
+} as const;
+
+
+export const ORDER_STATUS = {
+  PENDING_PAYMENT: 'PENDING_PAYMENT',
+  CONFIRMED: 'CONFIRMED',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
+  CANCELLED: 'CANCELLED',
+} as const;
+
+export const PAYMENT_METHOD = {
+  COD: 'COD',
+  RAZORPAY: 'RAZORPAY',
+} as const;
+
+export const PAYMENT_STATUS = {
+  PENDING: 'PENDING',
+  AUTHORIZED: 'AUTHORIZED',
+  PAID: 'PAID',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED',
+  REFUNDED: 'REFUNDED',
+} as const;
+
+export const SHIPMENT_STATUS = {
+  NOT_BOOKED: 'NOT_BOOKED',
+  BOOKED: 'BOOKED',
+  PICKED_UP: 'PICKED_UP',
+  IN_TRANSIT: 'IN_TRANSIT',
+  OUT_FOR_DELIVERY: 'OUT_FOR_DELIVERY',
+  DELIVERED: 'DELIVERED',
+  CANCELLED: 'CANCELLED',
 } as const;
