@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     default: config.appName,
     template: `%s · ${config.appName}`,
   },
-  description: 'Administrative panel for the AURA e-commerce application.',
+  description: 'Administrative panel for the Cotton Clique e-commerce application.',
 };
 
 export default function RootLayout({

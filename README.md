@@ -1,6 +1,6 @@
-# AURA Admin Panel
+# Cotton Clique Admin Panel
 
-Administrative panel for the AURA e-commerce application.
+Administrative panel for the Cotton Clique e-commerce application.
 
 This application talks only to the Backend API. It does not access PostgreSQL directly.
 

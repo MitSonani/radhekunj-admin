@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { NAV_SECTIONS } from '@/config/navigation';
 import { config } from '@/config';
@@ -33,10 +34,16 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         )}
       >
         <div className="flex h-header items-center justify-between border-b border-sidebar-border px-5">
-          <Link href="/dashboard" className="flex items-center gap-2" onClick={onClose}>
-            <span className="flex h-8 w-8 items-center justify-center rounded-md bg-sidebar-active text-sm font-semibold">
-              A
-            </span>
+          <Link href="/dashboard" className="flex items-center gap-2.5" onClick={onClose}>
+            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-white p-0.5 overflow-hidden shadow-2xs">
+              <Image
+                src="/brand/cotton-clique-logo.jpg"
+                alt="Cotton Clique"
+                width={32}
+                height={32}
+                className="h-full w-full object-contain"
+              />
+            </div>
             <span className="text-sm font-semibold tracking-wide">{config.appName}</span>
           </Link>
           <button
