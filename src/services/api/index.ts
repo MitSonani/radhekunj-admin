@@ -70,4 +70,14 @@ export type {
   ShipmentResponse,
   PaymentItemResponse,
 } from './orders';
+export { analyticsService } from './analytics';
+export type { DashboardAnalyticsData, AnalyticsDateRangeQuery } from './analytics';
+export { bannerService } from './banners';
+export type {
+  AdminBannerItem,
+  CreateBannerPayload,
+  UpdateBannerPayload,
+  BannerUploadUrlPayload,
+  PresignedUploadResponse,
+} from './banners';
 

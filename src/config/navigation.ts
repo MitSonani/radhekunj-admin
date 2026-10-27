@@ -38,6 +38,13 @@ export const NAV_SECTIONS: NavSection[] = [
         icon: 'dashboard',
         enabled: true,
       },
+      {
+        id: 'banners',
+        label: 'Hero Banners',
+        href: '/banners',
+        icon: 'dashboard',
+        enabled: true,
+      },
     ],
   },
   {
