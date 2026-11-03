@@ -81,3 +81,4 @@ export type {
   PresignedUploadResponse,
 } from './banners';
 
+export { inventoryService } from './inventory';

@@ -19,6 +19,9 @@ export const APP_ROUTES = {
   couponEdit: (id: string) => `/coupons/${id}/edit`,
   ORDERS: '/orders',
   orderDetail: (id: string) => `/orders/${id}`,
+  INVENTORY: '/inventory',
+  INVENTORY_MOVEMENTS: '/inventory/movements',
+  inventoryDetail: (variantId: string) => `/inventory/${variantId}`,
 } as const;
 
 export const STORAGE_KEYS = {
@@ -178,4 +181,29 @@ export const SHIPMENT_STATUS = {
   OUT_FOR_DELIVERY: 'OUT_FOR_DELIVERY',
   DELIVERED: 'DELIVERED',
   CANCELLED: 'CANCELLED',
+} as const;
+
+export const STOCK_STATUS = {
+  ALL: 'ALL',
+  IN_STOCK: 'IN_STOCK',
+  LOW_STOCK: 'LOW_STOCK',
+  OUT_OF_STOCK: 'OUT_OF_STOCK',
+} as const;
+
+export const INVENTORY_ADJUSTMENT_ACTIONS = {
+  ADD: 'ADD',
+  REMOVE: 'REMOVE',
+  SET: 'SET',
+  CORRECTION: 'CORRECTION',
+} as const;
+
+export const INVENTORY_MOVEMENT_TYPES = {
+  STOCK_RECEIVED: 'STOCK_RECEIVED',
+  MANUAL_ADJUSTMENT: 'MANUAL_ADJUSTMENT',
+  STOCK_CORRECTION: 'STOCK_CORRECTION',
+  ORDER_PLACED: 'ORDER_PLACED',
+  ORDER_RESERVED: 'ORDER_RESERVED',
+  ORDER_RELEASED: 'ORDER_RELEASED',
+  ORDER_CANCELLED: 'ORDER_CANCELLED',
+  REFUND_RESTOCKED: 'REFUND_RESTOCKED',
 } as const;

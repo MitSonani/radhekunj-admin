@@ -26,3 +26,7 @@ export { useOrders } from './useOrders';
 export { useOrder } from './useOrder';
 export { useOrderMutations } from './useOrderMutations';
 
+export { useInventory } from './useInventory';
+export { useInventoryDashboard } from './useInventoryDashboard';
+export { useInventoryMovements } from './useInventoryMovements';
+export { useInventoryMutations } from './useInventoryMutations';
