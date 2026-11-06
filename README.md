@@ -1,6 +1,6 @@
-# Cotton Clique Admin Panel
+# Admin Panel
 
-Administrative panel for the Cotton Clique e-commerce application.
+Administrative panel for the e-commerce application.
 
 This application talks only to the Backend API. It does not access PostgreSQL directly.
 
